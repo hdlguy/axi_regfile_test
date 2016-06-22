@@ -158,6 +158,38 @@ proc create_root_design { parentCell } {
 
   # Create ports
   set axi_aclk [ create_bd_port -dir O -type clk axi_aclk ]
+  set slv_read0 [ create_bd_port -dir I -from 31 -to 0 slv_read0 ]
+  set slv_read1 [ create_bd_port -dir I -from 31 -to 0 slv_read1 ]
+  set slv_read2 [ create_bd_port -dir I -from 31 -to 0 slv_read2 ]
+  set slv_read3 [ create_bd_port -dir I -from 31 -to 0 slv_read3 ]
+  set slv_read4 [ create_bd_port -dir I -from 31 -to 0 slv_read4 ]
+  set slv_read5 [ create_bd_port -dir I -from 31 -to 0 slv_read5 ]
+  set slv_read6 [ create_bd_port -dir I -from 31 -to 0 slv_read6 ]
+  set slv_read7 [ create_bd_port -dir I -from 31 -to 0 slv_read7 ]
+  set slv_read8 [ create_bd_port -dir I -from 31 -to 0 slv_read8 ]
+  set slv_read9 [ create_bd_port -dir I -from 31 -to 0 slv_read9 ]
+  set slv_read10 [ create_bd_port -dir I -from 31 -to 0 slv_read10 ]
+  set slv_read11 [ create_bd_port -dir I -from 31 -to 0 slv_read11 ]
+  set slv_read12 [ create_bd_port -dir I -from 31 -to 0 slv_read12 ]
+  set slv_read13 [ create_bd_port -dir I -from 31 -to 0 slv_read13 ]
+  set slv_read14 [ create_bd_port -dir I -from 31 -to 0 slv_read14 ]
+  set slv_read15 [ create_bd_port -dir I -from 31 -to 0 slv_read15 ]
+  set slv_reg0 [ create_bd_port -dir O -from 31 -to 0 slv_reg0 ]
+  set slv_reg1 [ create_bd_port -dir O -from 31 -to 0 slv_reg1 ]
+  set slv_reg2 [ create_bd_port -dir O -from 31 -to 0 slv_reg2 ]
+  set slv_reg3 [ create_bd_port -dir O -from 31 -to 0 slv_reg3 ]
+  set slv_reg4 [ create_bd_port -dir O -from 31 -to 0 slv_reg4 ]
+  set slv_reg5 [ create_bd_port -dir O -from 31 -to 0 slv_reg5 ]
+  set slv_reg6 [ create_bd_port -dir O -from 31 -to 0 slv_reg6 ]
+  set slv_reg7 [ create_bd_port -dir O -from 31 -to 0 slv_reg7 ]
+  set slv_reg8 [ create_bd_port -dir O -from 31 -to 0 slv_reg8 ]
+  set slv_reg9 [ create_bd_port -dir O -from 31 -to 0 slv_reg9 ]
+  set slv_reg10 [ create_bd_port -dir O -from 31 -to 0 slv_reg10 ]
+  set slv_reg11 [ create_bd_port -dir O -from 31 -to 0 slv_reg11 ]
+  set slv_reg12 [ create_bd_port -dir O -from 31 -to 0 slv_reg12 ]
+  set slv_reg13 [ create_bd_port -dir O -from 31 -to 0 slv_reg13 ]
+  set slv_reg14 [ create_bd_port -dir O -from 31 -to 0 slv_reg14 ]
+  set slv_reg15 [ create_bd_port -dir O -from 31 -to 0 slv_reg15 ]
 
   # Create instance: axi_bram_ctrl_0, and set properties
   set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.0 axi_bram_ctrl_0 ]
@@ -1272,6 +1304,9 @@ CONFIG.PCW_WDT_PERIPHERAL_FREQMHZ.VALUE_SRC {DEFAULT} \
 CONFIG.PCW_WDT_WDT_IO.VALUE_SRC {DEFAULT} \
  ] $processing_system7_0
 
+  # Create instance: regfilex16_v1_0_0, and set properties
+  set regfilex16_v1_0_0 [ create_bd_cell -type ip -vlnv user.org:user:regfilex16_v1_0:1.0 regfilex16_v1_0_0 ]
+
   # Create instance: rst_processing_system7_0_100M, and set properties
   set rst_processing_system7_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_processing_system7_0_100M ]
 
@@ -1282,38 +1317,138 @@ HDL_ATTRIBUTE.DEBUG_IN_BD {true} \
  ] [get_bd_intf_nets S00_AXI_1]
   connect_bd_intf_net -intf_net axi_bram_ctrl_0_BRAM_PORTA [get_bd_intf_pins axi_bram_ctrl_0/BRAM_PORTA] [get_bd_intf_pins axi_bram_ctrl_0_bram/BRAM_PORTA]
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins axi_bram_ctrl_0/S_AXI] [get_bd_intf_pins axi_interconnect_0/M00_AXI]
+  connect_bd_intf_net -intf_net axi_interconnect_0_M01_AXI [get_bd_intf_pins axi_interconnect_0/M01_AXI] [get_bd_intf_pins regfilex16_v1_0_0/s00_axi]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
 
   # Create port connections
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_ports axi_aclk] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_ports axi_aclk] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins regfilex16_v1_0_0/s00_axi_aclk] [get_bd_pins rst_processing_system7_0_100M/slowest_sync_clk]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_processing_system7_0_100M/ext_reset_in]
-  connect_bd_net -net rst_processing_system7_0_100M_peripheral_aresetn [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins rst_processing_system7_0_100M/peripheral_aresetn]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg0 [get_bd_ports slv_reg0] [get_bd_pins regfilex16_v1_0_0/slv_reg0]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg1 [get_bd_ports slv_reg1] [get_bd_pins regfilex16_v1_0_0/slv_reg1]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg2 [get_bd_ports slv_reg2] [get_bd_pins regfilex16_v1_0_0/slv_reg2]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg3 [get_bd_ports slv_reg3] [get_bd_pins regfilex16_v1_0_0/slv_reg3]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg4 [get_bd_ports slv_reg4] [get_bd_pins regfilex16_v1_0_0/slv_reg4]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg5 [get_bd_ports slv_reg5] [get_bd_pins regfilex16_v1_0_0/slv_reg5]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg6 [get_bd_ports slv_reg6] [get_bd_pins regfilex16_v1_0_0/slv_reg6]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg7 [get_bd_ports slv_reg7] [get_bd_pins regfilex16_v1_0_0/slv_reg7]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg8 [get_bd_ports slv_reg8] [get_bd_pins regfilex16_v1_0_0/slv_reg8]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg9 [get_bd_ports slv_reg9] [get_bd_pins regfilex16_v1_0_0/slv_reg9]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg10 [get_bd_ports slv_reg10] [get_bd_pins regfilex16_v1_0_0/slv_reg10]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg11 [get_bd_ports slv_reg11] [get_bd_pins regfilex16_v1_0_0/slv_reg11]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg12 [get_bd_ports slv_reg12] [get_bd_pins regfilex16_v1_0_0/slv_reg12]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg13 [get_bd_ports slv_reg13] [get_bd_pins regfilex16_v1_0_0/slv_reg13]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg14 [get_bd_ports slv_reg14] [get_bd_pins regfilex16_v1_0_0/slv_reg14]
+  connect_bd_net -net regfilex16_v1_0_0_slv_reg15 [get_bd_ports slv_reg15] [get_bd_pins regfilex16_v1_0_0/slv_reg15]
+  connect_bd_net -net rst_processing_system7_0_100M_peripheral_aresetn [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins regfilex16_v1_0_0/s00_axi_aresetn] [get_bd_pins rst_processing_system7_0_100M/peripheral_aresetn]
+  connect_bd_net -net slv_read0_1 [get_bd_ports slv_read0] [get_bd_pins regfilex16_v1_0_0/slv_read0]
+  connect_bd_net -net slv_read10_1 [get_bd_ports slv_read10] [get_bd_pins regfilex16_v1_0_0/slv_read10]
+  connect_bd_net -net slv_read11_1 [get_bd_ports slv_read11] [get_bd_pins regfilex16_v1_0_0/slv_read11]
+  connect_bd_net -net slv_read12_1 [get_bd_ports slv_read12] [get_bd_pins regfilex16_v1_0_0/slv_read12]
+  connect_bd_net -net slv_read13_1 [get_bd_ports slv_read13] [get_bd_pins regfilex16_v1_0_0/slv_read13]
+  connect_bd_net -net slv_read14_1 [get_bd_ports slv_read14] [get_bd_pins regfilex16_v1_0_0/slv_read14]
+  connect_bd_net -net slv_read15_1 [get_bd_ports slv_read15] [get_bd_pins regfilex16_v1_0_0/slv_read15]
+  connect_bd_net -net slv_read1_1 [get_bd_ports slv_read1] [get_bd_pins regfilex16_v1_0_0/slv_read1]
+  connect_bd_net -net slv_read2_1 [get_bd_ports slv_read2] [get_bd_pins regfilex16_v1_0_0/slv_read2]
+  connect_bd_net -net slv_read3_1 [get_bd_ports slv_read3] [get_bd_pins regfilex16_v1_0_0/slv_read3]
+  connect_bd_net -net slv_read4_1 [get_bd_ports slv_read4] [get_bd_pins regfilex16_v1_0_0/slv_read4]
+  connect_bd_net -net slv_read5_1 [get_bd_ports slv_read5] [get_bd_pins regfilex16_v1_0_0/slv_read5]
+  connect_bd_net -net slv_read6_1 [get_bd_ports slv_read6] [get_bd_pins regfilex16_v1_0_0/slv_read6]
+  connect_bd_net -net slv_read7_1 [get_bd_ports slv_read7] [get_bd_pins regfilex16_v1_0_0/slv_read7]
+  connect_bd_net -net slv_read8_1 [get_bd_ports slv_read8] [get_bd_pins regfilex16_v1_0_0/slv_read8]
+  connect_bd_net -net slv_read9_1 [get_bd_ports slv_read9] [get_bd_pins regfilex16_v1_0_0/slv_read9]
 
   # Create address segments
   create_bd_addr_seg -range 0x00002000 -offset 0x40000000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_bram_ctrl_0/S_AXI/Mem0] SEG_axi_bram_ctrl_0_Mem0
+  create_bd_addr_seg -range 0x00010000 -offset 0x40010000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs regfilex16_v1_0_0/s00_axi/reg0] SEG_regfilex16_v1_0_0_reg0
 
   # Perform GUI Layout
   regenerate_bd_layout -layout_string {
    guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -y -250 -defaultsOSRD
-preplace port axi_aclk -pg 1 -y -410 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -y -230 -defaultsOSRD
-preplace inst rst_processing_system7_0_100M -pg 1 -lvl 1 -y 160 -defaultsOSRD
-preplace inst axi_bram_ctrl_0_bram -pg 1 -lvl 4 -y -110 -defaultsOSRD
-preplace inst axi_interconnect_0 -pg 1 -lvl 2 -y -20 -defaultsOSRD
-preplace inst axi_bram_ctrl_0 -pg 1 -lvl 3 -y -110 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 1 -y -130 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 1 4 NJ -250 NJ -250 NJ -250 NJ
-preplace netloc axi_bram_ctrl_0_BRAM_PORTA 1 3 1 NJ
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 30 10 430
-preplace netloc rst_processing_system7_0_100M_peripheral_aresetn 1 1 2 450 -160 750
-preplace netloc processing_system7_0_FIXED_IO 1 1 4 NJ -230 NJ -230 NJ -230 NJ
-preplace netloc S00_AXI_1 1 1 1 430
-preplace netloc axi_interconnect_0_M00_AXI 1 2 1 760
-preplace netloc processing_system7_0_FCLK_CLK0 1 0 5 20 0 440 -170 770 -410 NJ -410 N
-levelinfo -pg 1 0 230 600 900 1140 1270 -top -450 -bot 520
+preplace port DDR -pg 1 -y 60 -defaultsOSRD
+preplace port axi_aclk -pg 1 -y 200 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -y 80 -defaultsOSRD
+preplace portBus slv_read11 -pg 1 -y 890 -defaultsOSRD
+preplace portBus slv_reg8 -pg 1 -y 840 -defaultsOSRD
+preplace portBus slv_read12 -pg 1 -y 910 -defaultsOSRD
+preplace portBus slv_reg9 -pg 1 -y 860 -defaultsOSRD
+preplace portBus slv_read13 -pg 1 -y 930 -defaultsOSRD
+preplace portBus slv_read0 -pg 1 -y 620 -defaultsOSRD
+preplace portBus slv_read14 -pg 1 -y 950 -defaultsOSRD
+preplace portBus slv_read1 -pg 1 -y 690 -defaultsOSRD
+preplace portBus slv_read15 -pg 1 -y 970 -defaultsOSRD
+preplace portBus slv_read2 -pg 1 -y 710 -defaultsOSRD
+preplace portBus slv_reg0 -pg 1 -y 680 -defaultsOSRD
+preplace portBus slv_read3 -pg 1 -y 730 -defaultsOSRD
+preplace portBus slv_reg1 -pg 1 -y 700 -defaultsOSRD
+preplace portBus slv_read4 -pg 1 -y 750 -defaultsOSRD
+preplace portBus slv_reg2 -pg 1 -y 720 -defaultsOSRD
+preplace portBus slv_reg10 -pg 1 -y 880 -defaultsOSRD
+preplace portBus slv_read5 -pg 1 -y 770 -defaultsOSRD
+preplace portBus slv_reg3 -pg 1 -y 740 -defaultsOSRD
+preplace portBus slv_reg11 -pg 1 -y 900 -defaultsOSRD
+preplace portBus slv_read6 -pg 1 -y 790 -defaultsOSRD
+preplace portBus slv_reg12 -pg 1 -y 920 -defaultsOSRD
+preplace portBus slv_reg4 -pg 1 -y 760 -defaultsOSRD
+preplace portBus slv_read7 -pg 1 -y 810 -defaultsOSRD
+preplace portBus slv_reg13 -pg 1 -y 940 -defaultsOSRD
+preplace portBus slv_reg5 -pg 1 -y 780 -defaultsOSRD
+preplace portBus slv_read8 -pg 1 -y 830 -defaultsOSRD
+preplace portBus slv_reg14 -pg 1 -y 960 -defaultsOSRD
+preplace portBus slv_reg6 -pg 1 -y 800 -defaultsOSRD
+preplace portBus slv_read10 -pg 1 -y 870 -defaultsOSRD
+preplace portBus slv_read9 -pg 1 -y 850 -defaultsOSRD
+preplace portBus slv_reg15 -pg 1 -y 980 -defaultsOSRD
+preplace portBus slv_reg7 -pg 1 -y 820 -defaultsOSRD
+preplace inst rst_processing_system7_0_100M -pg 1 -lvl 1 -y 540 -defaultsOSRD
+preplace inst axi_bram_ctrl_0_bram -pg 1 -lvl 3 -y 340 -defaultsOSRD
+preplace inst regfilex16_v1_0_0 -pg 1 -lvl 2 -y 830 -defaultsOSRD
+preplace inst axi_interconnect_0 -pg 1 -lvl 1 -y 330 -defaultsOSRD
+preplace inst axi_bram_ctrl_0 -pg 1 -lvl 2 -y 340 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 2 -y 140 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 2 2 NJ 60 NJ
+preplace netloc slv_read11_1 1 0 2 NJ 890 NJ
+preplace netloc slv_read5_1 1 0 2 NJ 770 NJ
+preplace netloc slv_read4_1 1 0 2 NJ 750 NJ
+preplace netloc slv_read6_1 1 0 2 NJ 790 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg8 1 2 2 NJ 840 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg9 1 2 2 NJ 860 NJ
+preplace netloc axi_bram_ctrl_0_BRAM_PORTA 1 2 1 NJ
+preplace netloc slv_read15_1 1 0 2 NJ 970 NJ
+preplace netloc slv_read2_1 1 0 2 NJ 710 NJ
+preplace netloc slv_read8_1 1 0 2 NJ 830 NJ
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 3 20 180 NJ 270 820
+preplace netloc regfilex16_v1_0_0_slv_reg0 1 2 2 NJ 680 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg10 1 2 2 NJ 880 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg1 1 2 2 NJ 700 NJ
+preplace netloc rst_processing_system7_0_100M_peripheral_aresetn 1 0 2 40 190 390
+preplace netloc slv_read0_1 1 0 2 NJ 630 NJ
+preplace netloc slv_read10_1 1 0 2 NJ 870 NJ
+preplace netloc slv_read3_1 1 0 2 NJ 730 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg2 1 2 2 NJ 720 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg11 1 2 2 NJ 900 NJ
+preplace netloc processing_system7_0_FIXED_IO 1 2 2 NJ 80 NJ
+preplace netloc S00_AXI_1 1 0 3 30 10 NJ 10 830
+preplace netloc slv_read14_1 1 0 2 NJ 950 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg12 1 2 2 NJ 920 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg3 1 2 2 NJ 740 NJ
+preplace netloc axi_interconnect_0_M00_AXI 1 1 1 N
+preplace netloc regfilex16_v1_0_0_slv_reg13 1 2 2 NJ 940 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg4 1 2 2 NJ 760 NJ
+preplace netloc axi_interconnect_0_M01_AXI 1 1 1 400
+preplace netloc slv_read13_1 1 0 2 NJ 930 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg14 1 2 2 NJ 960 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg5 1 2 2 NJ 780 NJ
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 10 170 410 410 830 200 NJ
+preplace netloc slv_read9_1 1 0 2 NJ 850 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg15 1 2 2 NJ 980 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg6 1 2 2 NJ 800 NJ
+preplace netloc slv_read12_1 1 0 2 NJ 910 NJ
+preplace netloc slv_read1_1 1 0 2 NJ 690 NJ
+preplace netloc slv_read7_1 1 0 2 NJ 810 NJ
+preplace netloc regfilex16_v1_0_0_slv_reg7 1 2 2 NJ 820 NJ
+levelinfo -pg 1 -10 210 620 940 1070 -top 0 -bot 1060
 ",
 }
 

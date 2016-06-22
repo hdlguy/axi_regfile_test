@@ -26,7 +26,7 @@ source ../source/system.tcl
 generate_target {synthesis implementation} [get_files ./proj.srcs/sources_1/bd/system/system.bd]
 
 # Read in the hdl source.
-read_vhdl [glob ../source/spi_slave/spi_slave.vhd]
+#read_vhdl [glob ../source/spi_slave/spi_slave.vhd]
 read_verilog -sv  [glob ../source/top.v]
 
 read_xdc ../source/top.xdc
