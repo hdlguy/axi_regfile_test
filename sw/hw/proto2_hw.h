@@ -12,4 +12,6 @@ We will try to use Doxygen compatible comments wherever possible.
 
 #define     AXI_REGFILE     0x00010000
 
+#define     FPGA_ID         (AXI_REGFILE+0x00)
+#define     FPGA_VERSION    (AXI_REGFILE+0x04)
 

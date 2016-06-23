@@ -22,7 +22,7 @@ void write_reg(uint8_t* vir_addr,uint32_t offset,uint32_t value)
 
 uint32_t read_reg(uint8_t* vir_addr, uint32_t offset)
 {
-//DEBUG("read vir_addr=%x, offset=%x, %x\n",(uint32_t)vir_addr, offset, (uint32_t)(vir_addr+offset));
+DEBUG("read vir_addr=%x, offset=%x, %x\n",(uint32_t)vir_addr, offset, (uint32_t)(vir_addr+offset));
    return *((uint32_t*)(vir_addr+offset));
 }
 
