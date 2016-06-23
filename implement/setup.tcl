@@ -1,4 +1,5 @@
 # This script sets up a Vivado project with all ip references resolved.
+close_project -quiet
 file delete -force proj.xpr *.os *.jou *.log proj.srcs proj.cache proj.runs ip
 #
 create_project -force proj 
@@ -10,13 +11,8 @@ set_property default_lib work [current_project]
 load_features ipintegrator
 tclapp::install ultrafast -quiet
 
-# Load in the custom IP block for the register file.
-file delete -force ./ip
-file mkdir ./ip
-set_property ip_repo_paths ./ip [current_fileset]
+set_property ip_repo_paths ../source/ip_repo [current_fileset]
 update_ip_catalog
-update_ip_catalog -add_ip ../source/regfilex16/user.org_user_regfilex16_v1_0_1.0.zip -repo_path ./ip
-
 
 #read_ip ../source/spi_slave/spi_slave_mem/spi_slave_mem.xci
 #upgrade_ip -quiet  [get_ips *]
