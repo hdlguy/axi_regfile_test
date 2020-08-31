@@ -25,6 +25,7 @@ module top (
     logic   spi_slave_sck, spi_slave_mosi, spi_slave_miso;
     logic   [0:0]   spi_slave_ss_n;
     logic   axi_aclk;
+    logic [15:0][31:0] slv_reg, slv_read;
 
     system system_i(
         .DDR_addr(DDR_addr),
@@ -49,55 +50,43 @@ module top (
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
         .axi_aclk(axi_aclk),
-        .slv_read0(slv_read0),
-        .slv_read1(slv_read1),
-        .slv_read10(slv_read10),
-        .slv_read11(slv_read11),
-        .slv_read12(slv_read12),
-        .slv_read13(slv_read13),
-        .slv_read14(slv_read14),
-        .slv_read15(slv_read15),
-        .slv_read2(slv_read2),
-        .slv_read3(slv_read3),
-        .slv_read4(slv_read4),
-        .slv_read5(slv_read5),
-        .slv_read6(slv_read6),
-        .slv_read7(slv_read7),
-        .slv_read8(slv_read8),
-        .slv_read9(slv_read9),
-        .slv_reg0(slv_reg0),
-        .slv_reg1(slv_reg1),
-        .slv_reg10(slv_reg10),
-        .slv_reg11(slv_reg11),
-        .slv_reg12(slv_reg12),
-        .slv_reg13(slv_reg13),
-        .slv_reg14(slv_reg14),
-        .slv_reg15(slv_reg15),
-        .slv_reg2(slv_reg2),
-        .slv_reg3(slv_reg3),
-        .slv_reg4(slv_reg4),
-        .slv_reg5(slv_reg5),
-        .slv_reg6(slv_reg6),
-        .slv_reg7(slv_reg7),
-        .slv_reg8(slv_reg8),
-        .slv_reg9(slv_reg9)
+        .slv_read0(slv_read[0]),
+        .slv_read1(slv_read[1]),
+        .slv_read10(slv_read[10]),
+        .slv_read11(slv_read[11]),
+        .slv_read12(slv_read[12]),
+        .slv_read13(slv_read[13]),
+        .slv_read14(slv_read[14]),
+        .slv_read15(slv_read[15]),
+        .slv_read2(slv_read[2]),
+        .slv_read3(slv_read[3]),
+        .slv_read4(slv_read[4]),
+        .slv_read5(slv_read[5]),
+        .slv_read6(slv_read[6]),
+        .slv_read7(slv_read[7]),
+        .slv_read8(slv_read[8]),
+        .slv_read9(slv_read[9]),
+        .slv_reg0(slv_reg[0]),
+        .slv_reg1(slv_reg[1]),
+        .slv_reg10(slv_reg[10]),
+        .slv_reg11(slv_reg[11]),
+        .slv_reg12(slv_reg[12]),
+        .slv_reg13(slv_reg[13]),
+        .slv_reg14(slv_reg[14]),
+        .slv_reg15(slv_reg[15]),
+        .slv_reg2(slv_reg[2]),
+        .slv_reg3(slv_reg[3]),
+        .slv_reg4(slv_reg[4]),
+        .slv_reg5(slv_reg[5]),
+        .slv_reg6(slv_reg[6]),
+        .slv_reg7(slv_reg[7]),
+        .slv_reg8(slv_reg[8]),
+        .slv_reg9(slv_reg[9])
     );
+    
+    assign slv_read[0]  = 32'hDEADBEEF;
+    assign slv_read[1]  = 32'h76543210;
+    assign slv_read[15:2] = slv_reg[15:2];
 
-    assign slv_read0  = 16'hDEADBEEF;
-    assign slv_read1  = 16'h76543210;
-    assign slv_read2  = slv_reg2;
-    assign slv_read3  = slv_reg3;
-    assign slv_read4  = slv_reg4;
-    assign slv_read5  = slv_reg5;
-    assign slv_read6  = slv_reg6;
-    assign slv_read7  = slv_reg7;
-    assign slv_read8  = slv_reg8;
-    assign slv_read9  = slv_reg9;
-    assign slv_read10 = slv_reg10;
-    assign slv_read11 = slv_reg11;
-    assign slv_read12 = slv_reg12;
-    assign slv_read13 = slv_reg13;
-    assign slv_read14 = slv_reg14;
-    assign slv_read15 = slv_reg15;
 
 endmodule
