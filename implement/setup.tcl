@@ -20,6 +20,7 @@ update_ip_catalog
 
 source ../source/system.tcl
 generate_target {synthesis implementation} [get_files ./proj.srcs/sources_1/bd/system/system.bd]
+set_property synth_checkpoint_mode None    [get_files ./proj.srcs/sources_1/bd/system/system.bd]
 
 # Read in the hdl source.
 #read_vhdl [glob ../source/spi_slave/spi_slave.vhd]
